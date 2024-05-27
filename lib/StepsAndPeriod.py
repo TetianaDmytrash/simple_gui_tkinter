@@ -16,6 +16,7 @@ class StepsAndPeriodFrame(tk.LabelFrame):
         self._bottom_limit_step = 10
         self._bottom_limit_period = 5
         self._upper_limit = 110
+        self.engines_info = []
         self.create_widgets(number)
 
     def create_widgets(self, number):
@@ -27,11 +28,16 @@ class StepsAndPeriodFrame(tk.LabelFrame):
 
         for num in range(number):
             num_write = num + 1
-            label = tk.Label(self, text=f"станок {num_write}")
+            label = tk.Label(self, text=f"номер двигателя {num_write}")
             step_spinbox = tk.Spinbox(self, from_=self._bottom_limit_step, to=self._upper_limit)
             period_spinbox = tk.Spinbox(self, from_=self._bottom_limit_period, to=self._upper_limit)
 
             label.grid(row=num_write, column=0, padx=self._padx, pady=self._pady)
             step_spinbox.grid(row=num_write, column=1, padx=self._padx, pady=self._pady)
             period_spinbox.grid(row=num_write, column=2, padx=self._padx, pady=self._pady)
+            self.engines_info.append((str(num_write), step_spinbox.get(), period_spinbox.get()))
 
+        print(f"in channel: {self.engines_info}")
+
+    def get_step_period_info(self):
+        return self.engines_info

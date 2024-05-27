@@ -28,7 +28,7 @@ class ChoosePortFrame(tk.LabelFrame):
         print(f"selected port: {self.selected_port}")
 
     def get_port(self):
-        print("here")
+        print(f"here: {self.selected_port}")
         return self.selected_port
 
     def find_com_ports_in_system(self):
