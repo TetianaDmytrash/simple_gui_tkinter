@@ -3,10 +3,10 @@
 """
 import tkinter as tk
 
-from Button import ButtonFrame
-from COMPort import ChoosePortFrame
-from Response import ResponseFrame
-from StepsAndPeriod import StepsAndPeriodFrame
+from lib.Button import ButtonFrame
+from lib.COMPort import ChoosePortFrame
+from lib.Response import ResponseFrame
+from lib.StepsAndPeriod import StepsAndPeriodFrame
 
 
 class COMPortApp(tk.Tk):

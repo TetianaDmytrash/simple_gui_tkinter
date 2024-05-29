@@ -3,7 +3,7 @@ bottom
 """
 import tkinter as tk
 
-from SpeakChannel import SpeakCOMPort
+from lib.SpeakChannel import SpeakCOMPort
 
 
 class ButtonFrame(tk.Frame):

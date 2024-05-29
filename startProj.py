@@ -3,8 +3,8 @@ main file with calling all function
 """
 import tkinter
 
-from SpeakChannel import SpeakCOMPort
-from UIView import COMPortApp
+from lib.SpeakChannel import SpeakCOMPort
+from lib.UIView import COMPortApp
 
 if __name__ == "__main__":
     app = COMPortApp()
