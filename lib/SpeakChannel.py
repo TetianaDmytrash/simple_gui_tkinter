@@ -15,12 +15,12 @@ class SpeakCOMPort:
         print(f"start open connect with port")
         selected_port = self.port_var.get_port()
         if selected_port:
+            print(f"#Opening port: {selected_port}")
             self.response_frame.write_response(f"#Opening port: {selected_port}")
-            self.send_request()
             try:
                 self._serial_connect = serial.Serial(selected_port, baudrate=9600)
                 self.response_frame.write_response(f"Port {selected_port} opened successfully.")
-                # self.send_request()
+                self.send_request()
             except Exception as e:
                 print(f"error occurred during open connection with COM port: {e}")
                 self.response_frame.write_response(f"error occurred during open connection with COM port: {e}")
@@ -35,14 +35,14 @@ class SpeakCOMPort:
         engine[2] - period
         :return:
         """
-        print(f"fffffffffffffffff: {self.step_period_var.get_step_period_info()}")
+        print(f"step and period information: {self.step_period_var.get_step_period_info()}")
         for engine in self.step_period_var.get_step_period_info():
             request_string = f"set:{engine[0]};{engine[1]};{engine[2]}."
             self.response_frame.write_response(f"->send data: {request_string}")
             if self._serial_connect and self._serial_connect.is_open:
                 self._serial_connect.write(request_string.encode())
                 print(f"send data: {request_string}")
-                # self.response_frame.write_response(f"->send data: {request_string}")
+                self.response_frame.write_response(f"->send data: {request_string}")
             else:
                 print("#port is not open.")
                 self.response_frame.write_response("#port is not open.")
