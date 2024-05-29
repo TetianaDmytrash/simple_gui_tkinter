@@ -28,6 +28,8 @@ class ChoosePortFrame(tk.LabelFrame):
         print(f"selected port: {self.selected_port}")
 
     def get_port(self):
+        full_string = self.selected_port
+        self.selected_port = full_string.split(' ')[0]
         print(f"here: {self.selected_port}")
         return self.selected_port
 
