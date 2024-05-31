@@ -28,14 +28,15 @@ class ChoosePortFrame(tk.LabelFrame):
         print(f"selected port: {self.selected_port}")
 
     def get_port(self):
-        full_string = self.selected_port
-        self.selected_port = full_string.split(' ')[0]
         print(f"here: {self.selected_port}")
         return self.selected_port
 
     def find_com_ports_in_system(self):
         try:
             ports_name = list(serial.tools.list_ports.comports())
+            for i in range(len(ports_name)):
+                port_string = str(ports_name[i])
+                ports_name[i] = port_string.split(' ')[0]
             print(f"COM ports exist in system: {ports_name}")
             if len(ports_name) == 0:
                 print(f"didn`t find any COM ports. Do example list.")

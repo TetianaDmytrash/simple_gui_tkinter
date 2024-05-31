@@ -18,7 +18,7 @@ class SpeakCOMPort:
             print(f"#Opening port: {selected_port}")
             self.response_frame.write_response(f"#Opening port: {selected_port}")
             try:
-                self._serial_connect = serial.Serial(selected_port, baudrate=9600)
+                self._serial_connect = serial.Serial(selected_port, baudrate=115200, timeout=1)
                 self.response_frame.write_response(f"Port {selected_port} opened successfully.")
                 self.send_request()
             except Exception as e:
