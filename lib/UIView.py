@@ -28,7 +28,7 @@ class COMPortApp(tk.Tk):
         return self.choose_port_frame
 
     def step_period_frame(self, frame):
-        self.steps_period_frame = StepsAndPeriodFrame(frame, 4)
+        self.steps_period_frame = StepsAndPeriodFrame(frame, 5)
         self.steps_period_frame.grid(row=1, column=0, padx=self._padx, pady=self._pady)
         return self.steps_period_frame
 
