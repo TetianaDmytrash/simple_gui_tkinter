@@ -18,7 +18,7 @@ class SerialApp:
         self.read_thread = None
         self.stop_reading = False
         
-        self.create_widgets(4)  # 4 двигателя по умолчанию
+        self.create_widgets(5)  # 5 двигателя по умолчанию
         
     def create_widgets(self, number):
         self.engines_info = []
@@ -32,14 +32,17 @@ class SerialApp:
         self.port_combobox.grid(row=0, column=1, padx=5, pady=5)
         self.port_combobox.bind('<<ComboboxSelected>>', self.connect_to_port)
         
+        self.clear_config_button = ttk.Button(self.root, text="Clear Config", command=self.clear_config)
+        self.clear_config_button.grid(row=0, column=4, padx=5, pady=5, sticky="e")
+        
         self.data_text = tk.Text(self.root, height=15, width=50)
         self.data_text.grid(row=1, column=0, columnspan=5, padx=5, pady=5)
         
         self.send_all_button = ttk.Button(self.root, text="Send All", command=self.send_all_data)
-        self.send_all_button.grid(row=2, column=0, columnspan=5, padx=5, pady=5)
+        self.send_all_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
 
-        self.clear_config_button = ttk.Button(self.root, text="Clear Config", command=self.clear_config)
-        self.clear_config_button.grid(row=2, column=2, columnspan=5, padx=5, pady=5)
+        self.restart_button = ttk.Button(self.root, text="Restart", command=self.send_restart)
+        self.restart_button.grid(row=2, column=2, columnspan=2, padx=5, pady=5)
         
         # Заголовки столбцов
         engine_label = ttk.Label(self.root, text="Engine")
@@ -131,6 +134,15 @@ class SerialApp:
         for num_write, (step_var, period_var, time_var) in enumerate(self.engines_info, start=1):
             self.send_data(num_write, step_var, period_var, time_var)
     
+    def send_restart(self):
+        if self.serial_connection:
+            try:
+                data_to_send = "Start...\n\r\n"
+                self.serial_connection.write(data_to_send.encode('utf-8'))
+            except (serial.SerialException, OSError) as e:
+                self.data_text.insert(tk.END, f"Error sending restart command: {e}\n")
+                self.data_text.see(tk.END)
+
     def save_config(self):
         config = {
             "port": self.port_var.get(),
